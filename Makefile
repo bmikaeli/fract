@@ -3,7 +3,7 @@ CFLAGS = -std=c99 -O3 -Wall -Wextra
 SRCS_D = srcs/
 OBJS_D = objs/
 HEADERS = includes/
-SRCS = main.c
+SRCS = main.c fractals.c
 
 OBJS = $(SRCS:.c=.o)
 OBJS_P = $(addprefix $(OBJS_D), $(OBJS))
