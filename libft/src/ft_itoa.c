@@ -12,50 +12,78 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include "libft.h"
 
-static int			ft_alloc(int n)
+static size_t	ft_mem_alloc(int nb)
 {
-	int	i;
+    size_t	res;
 
-	i = 0;
-	while (n > 0)
-	{
-		n /= 10;
-		i++;
-	}
-	while (n < 0)
-	{
-		n *= 10;
-		i++;
-	}
-	return (i);
+    res = 0;
+    while (nb > 0)
+    {
+        nb = nb / 10;
+        res++;
+    }
+    return (res);
 }
 
-char				*ft_itoa(int n)
+static char		*ft_negative(int n)
 {
-	char	*p;
+    char	*ptr;
+    int		i;
+    int		div;
 
-	p = (char *)malloc(sizeof(char) * (ft_alloc(n) + 1));
-	*p = 0;
-	if (n == 0)
-		return ("0");
-	if (n >= 0)
-	{
-		while (n != 0)
-		{
-			*--p = '0' + (n % 10);
-			n /= 10;
-		}
-		return (p);
-	}
-	else
-	{
-		while (n != 0)
-		{
-			*--p = '0' - (n % 10);
-			n /= 10;
-		}
-		*--p = '-';
-	}
-	return (p);
+    div = 1;
+    n = n * -1;
+    i = 0;
+    ptr = (char *)malloc(sizeof(char) * (ft_mem_alloc(n) + 1));
+    ptr[i] = '-';
+    i++;
+    while ((n / div) >= 10)
+        div *= 10;
+    while (div > 0)
+    {
+        ptr[i] = ((n / div) % 10) + 48;
+        div = div / 10;
+        i++;
+    }
+    ptr[i] = '\0';
+    return (ptr);
+}
+
+static char		*ft_zero(void)
+{
+    char	*ptr;
+
+    ptr = (char *)malloc(sizeof(char) + 2);
+    ptr[0] = '0';
+    ptr[1] = '\0';
+    return (ptr);
+}
+
+char			*ft_itoa(int n)
+{
+    char	*ptr;
+    int		i;
+    int		div;
+
+    if (n == -2147483648)
+        return (ft_strdup("-2147483648"));
+    else if (n == 0)
+        return (ft_zero());
+    i = 0;
+    div = 1;
+    ptr = (char *)malloc(sizeof(char) * (ft_mem_alloc(n) + 1));
+    if (n < 0)
+        return (ft_negative(n));
+    while ((n / div) >= 10)
+        div *= 10;
+    while (div > 0)
+    {
+        ptr[i] = ((n / div) % 10) + 48;
+        div = div / 10;
+        i++;
+    }
+    ptr[i] = '\0';
+    return (ptr);
 }
