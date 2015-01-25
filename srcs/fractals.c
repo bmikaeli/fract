@@ -67,71 +67,61 @@ void mandelbrot(t_mlx *mlx) {
     }
 }
 
-//The recursive function that'll draw all the upside down triangles
 static void subTriangle(t_mlx *mlx, int n, float x1, float y1, float x2, float y2, float x3, float y3) {
-    //Draw the 3 sides as black lines
     draw_line_to_image(mlx, x1, y1, x2, y2, 0xff0000);
     draw_line_to_image(mlx, x1, y1, x3, y3, 0xff0000);
     draw_line_to_image(mlx, x2, y2, x3, y3, 0xff0000);
 
-    //Calls itself 3 times with new corners, but only if the current number of recursions is smaller than the maximum depth
-//    if (n < mlx->iteration) {
     if (n < mlx->iteration) {
-        //Smaller triangle 1
         subTriangle
                 (
                         mlx,
-                        n + 1, //Number of recursions for the next call increased with 1
-                        (x1 + x2) / 2 + (x2 - x3) / 2, //x coordinate of first corner
-                        (y1 + y2) / 2 + (y2 - y3) / 2, //y coordinate of first corner
-                        (x1 + x2) / 2 + (x1 - x3) / 2, //x coordinate of second corner
-                        (y1 + y2) / 2 + (y1 - y3) / 2, //y coordinate of second corner
-                        (x1 + x2) / 2, //x coordinate of third corner
-                        (y1 + y2) / 2  //y coordinate of third corner
+                        n + 1,
+                        (x1 + x2) / 2 + (x2 - x3) / 2,
+                        (y1 + y2) / 2 + (y2 - y3) / 2,
+                        (x1 + x2) / 2 + (x1 - x3) / 2,
+                        (y1 + y2) / 2 + (y1 - y3) / 2,
+                        (x1 + x2) / 2,
+                        (y1 + y2) / 2
                 );
-        //Smaller triangle 2
         subTriangle
                 (
                         mlx,
-                        n + 1, //Number of recursions for the next call increased with 1
-                        (x3 + x2) / 2 + (x2 - x1) / 2, //x coordinate of first corner
-                        (y3 + y2) / 2 + (y2 - y1) / 2, //y coordinate of first corner
-                        (x3 + x2) / 2 + (x3 - x1) / 2, //x coordinate of second corner
-                        (y3 + y2) / 2 + (y3 - y1) / 2, //y coordinate of second corner
-                        (x3 + x2) / 2, //x coordinate of third corner
-                        (y3 + y2) / 2  //y coordinate of third corner
+                        n + 1,
+                        (x3 + x2) / 2 + (x2 - x1) / 2,
+                        (y3 + y2) / 2 + (y2 - y1) / 2,
+                        (x3 + x2) / 2 + (x3 - x1) / 2,
+                        (y3 + y2) / 2 + (y3 - y1) / 2,
+                        (x3 + x2) / 2,
+                        (y3 + y2) / 2
                 );
-        //Smaller triangle 3
         subTriangle
                 (
                         mlx,
-                        n + 1, //Number of recursions for the next call increased with 1
-                        (x1 + x3) / 2 + (x3 - x2) / 2, //x coordinate of first corner
-                        (y1 + y3) / 2 + (y3 - y2) / 2, //y coordinate of first corner
-                        (x1 + x3) / 2 + (x1 - x2) / 2, //x coordinate of second corner
-                        (y1 + y3) / 2 + (y1 - y2) / 2, //y coordinate of second corner
-                        (x1 + x3) / 2, //x coordinate of third corner
-                        (y1 + y3) / 2  //y coordinate of third corner
+                        n + 1,
+                        (x1 + x3) / 2 + (x3 - x2) / 2,
+                        (y1 + y3) / 2 + (y3 - y2) / 2,
+                        (x1 + x3) / 2 + (x1 - x2) / 2,
+                        (y1 + y3) / 2 + (y1 - y2) / 2,
+                        (x1 + x3) / 2,
+                        (y1 + y3) / 2
                 );
     }
 }
 
 void drawSierpinski(t_mlx *mlx, float x1, float y1, float x2, float y2, float x3, float y3) {
-    //Draw the 3 sides of the triangle as black lines
     draw_line_to_image(mlx, x1, y1, x2, y2, 0xff0000);
     draw_line_to_image(mlx, x1, y1, x3, y3, 0xff0000);
     draw_line_to_image(mlx, x2, y2, x3, y3, 0xff0000);
-//
-    //Call the recursive function that'll draw all the rest. The 3 corners of it are always the centers of sides, so they're averages
+
     subTriangle
             (
                     mlx,
-                    1, //This represents the first recursion
-                    (x1 + x2) / 2, //x coordinate of first corner
-                    (y1 + y2) / 2, //y coordinate of first corner
-                    (x1 + x3) / 2, //x coordinate of second corner
-                    (y1 + y3) / 2, //y coordinate of second corner
-                    (x2 + x3) / 2, //x coordinate of third corner
-                    (y2 + y3) / 2  //y coordinate of third corner
+                    1,
+                    (x1 + x2) / 2,
+                    (y1 + y2) / 2,
+                    (x1 + x3) / 2,
+                    (y1 + y3) / 2,
+                    (y2 + y3) / 2
             );
 }

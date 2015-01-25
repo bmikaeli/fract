@@ -29,7 +29,7 @@ int main(int ac, char **av) {
 
     t_mlx mlx;
     if (ac != 2) {
-        ft_putendl("usage : ./fractol <Fractal_Name> (Julia/MandelBrot)");
+        ft_putendl("usage : ./fractol <Fractal_Name> (julia/mandelBrot/sierpinski)");
         return 0;
     }
     if (!choose_fractal(&mlx, av[1]))
@@ -39,7 +39,7 @@ int main(int ac, char **av) {
     mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, WIDTH, HEIGHT, "Fract'Ol");
     mlx.img_ptr = mlx_new_image(mlx.mlx_ptr, WIDTH, HEIGHT);
     mlx.Ca = -0.4242;
-    mlx.Cb = +0.4242;
+    mlx.Cb = 0.4242;
     mlx.iteration = 7;
     mlx.img_height = 1000;
     mlx.img_width = 1000;

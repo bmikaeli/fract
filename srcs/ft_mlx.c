@@ -72,6 +72,7 @@ int handle_mouse_button(int button, int x, int y, t_mlx *mlx) {
 }
 
 int key_hook(int keycode, t_mlx *mlx) {
+    printf("touche : %d", keycode);
     if (keycode == 99) {
         mlx->color_shift++;
         if (mlx->color_shift >= 12)
@@ -88,7 +89,6 @@ int key_hook(int keycode, t_mlx *mlx) {
         mlx->mouse_x -= 0.003 / mlx->zoom;
     if (keycode == RIGHT)
         mlx->mouse_x += 0.003 / mlx->zoom;
-
     if (keycode == MINUS && mlx->iteration > 1)
         mlx->iteration -= 1;
     if (keycode == PLUS)
