@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -std=c99 -O3 -Wall -Wextra
+CFLAGS = -Ofast -Wall -Wextra
 SRCS_D = srcs/
 OBJS_D = objs/
 HEADERS = includes/
@@ -8,7 +8,7 @@ SRCS = main.c fractals.c ft_mlx.c
 OBJS = $(SRCS:.c=.o)
 OBJS_P = $(addprefix $(OBJS_D), $(OBJS))
 LDIR = libft
-LFLAGS = -L$(LDIR) -lft
+LFLAGS = -L$(LDIR) -lft -L/usr/X11/lib -lmlx -lXext -lX11
 
 NAME = fractol
 
@@ -19,7 +19,7 @@ $(NAME): $(LDIR)/libft.a $(OBJS_P)
 
 $(addprefix $(OBJS_D), %.o): $(addprefix $(SRCS_D), %.c)
 	@mkdir -p $(OBJS_D)
-	$(CC) -c -o $@ $^ $(CFLAGS) -I $(HEADERS) -I $(LDIR)/includes -I /usr/X11/include -I /opt/X11/include/X11 -g -L/usr/X11/lib -lX11 -lmlx -lXext
+	$(CC) -c -o $@ $^ $(CFLAGS) -I $(HEADERS) -I $(LDIR)/includes
 
 lib:
 	make -C $(LDIR)
